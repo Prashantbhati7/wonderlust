@@ -1,0 +1,108 @@
+<%- layout("/layouts/boilerplate") %>
+
+  <style>
+    #filter {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+
+      column-gap: 2rem;
+
+    }
+    .filter {
+      text-align: center;
+      opacity: 0.7;
+    }
+
+    .filter:hover {
+      opacity: 1;
+      cursor: pointer;
+    }
+  </style>
+
+
+  <!-- <h3>All Listings</h3> -->
+    <div id="filter">
+      <div class="filter mt-3 mb-3">
+        <div class="icon"><i class="fa-solid fa-fire-flame-curved"></i></div>
+        <p>trending</p>
+      </div>
+      <div class="filter mt-3 mb-3">
+        <div class="icon"><i class="fa-solid fa-hotel"></i></div>
+        <p>Hotels</p>
+      </div>
+      <div class="filter mt-3 mb-3">
+        <div class="icon"><i class="fa-solid fa-mountain-city"></i></div>
+        <p>Hill view </p>
+      </div>
+      <div class="filter mt-3 mb-3">
+        <div class="icon"><i class="fa-solid fa-umbrella-beach"></i></div>
+        <p>On Beach</p>
+      </div>
+      <div class="filter mt-3 mb-3">
+        <div class="icon"><i class="fa-solid fa-building"></i></div>
+        <p>Apartments</p>
+      </div>
+      <div class="filter mt-3 mb-3">
+        <div class="icon"><i class="fa-solid fa-person-skiing"></i></div>
+        <p>Sking</p>
+      </div>
+      <div class="filter mt-3 mb-3">
+        <div class="icon"><i class="fa-solid fa-crown"></i></div>
+        <p>Royal palace</p>
+      </div>
+      <div class="filter mt-3 mb-3">
+        <div class="icon"><i class="fa-solid fa-person-swimming"></i></div>
+        <p>waterparks</p>
+      </div>
+      <div class="filter mt-3 mb-3">
+        <div class="icon"><i class="fa-solid fa-champagne-glasses"></i></div>
+        <p>Party Places</p>
+      </div>
+      <div class="filter mt-3 mb-3">
+        <div class="icon"><i class="fa-solid fa-gamepad"></i></div>
+        <p>Game Zones</p>
+      </div>
+       <div class="tax-toggle mt-3">
+        <div class="form-check-reverse form-switch">
+          <input class="form-check-input" type="checkbox" role="switch" id="tax-switch">
+          <label class="form-check-label" for="tax-switch">Display total after taxes</label>
+        </div> 
+        
+
+        
+      </div>
+ 
+  </div>
+  <div class="row row-cols-lg-3 mt-3 row-cols-md-2 row-cols-sm-1">
+    <% for (let listing of allListings){ %>
+      <a href="/listings/<%=listing._id%>" class="listing-link">
+        <div class="card listing-card" style="width: 18rem;">
+
+          <img src="<%=listing.image%>" class="card-img-top" alt="image not available" style="height: 20rem;">
+          <div class="card-img-overlay"></div>
+          <div class="card-body">
+            <p class="card-text">
+              <b>
+                <%= listing.title %>
+              </b>
+              <br>
+
+              <b>＄<%= (listing.price !==undefined && listing.price !==null) ? listing.price.toLocaleString("en-IN")
+                  : '0' %></b>/night
+
+            </p>
+          </div>
+        </div>
+      </a>
+      <% } %>
+  </div>
+
+  <script>
+    let taxswitch = document.getElementById("tax-switch");
+    taxswitch.addEventListener("click",()=>{
+        
+    });
+
+  </script>
