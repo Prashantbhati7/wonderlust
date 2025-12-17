@@ -31,6 +31,7 @@ const listingSchema = new Schema({       //schema validation
     owner:{
         type:Schema.Types.ObjectId,
         ref:"User",
+        default:"anonmyous",
     }
 });
 listingSchema.post("findOneAndDelete",async(listing)=>{
