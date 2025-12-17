@@ -55,6 +55,7 @@ module.exports.editlisting = async (req,res)=>{
 
 module.exports.updatedlisting = async (req,res,next)=>{
     // try{
+        console.log("got requst at updtaed listing ")
         let newlisting = req.body;
         let {id} = req.params;
         let listing = await Listing.findById(id);

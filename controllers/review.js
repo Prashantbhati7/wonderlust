@@ -16,18 +16,17 @@ module.exports.showreview = (req,res)=>{
 };
 
 module.exports.newreview = async (req,res)=>{
-    let {id,reviewid} = req.params;
+    let {id} = req.params;
     let listing =await Listing.findById(id);
+    
     let newreview = new Review(req.body.review);
-  // console.log(res.locals.request.user);
+    
     newreview.owner = res.locals.request.user;
-    //console.log(newreview);
-    // res.send(newreview);
-    //console.log("new review is ");
-    //console.log(newreview);
+   
+    //res.send(newreview);
     listing.reviews.push(newreview);
     await newreview.save();
     await listing.save();
-    console.log("review saved ");
+   
     res.redirect(`/listings/${id}`)
 };
