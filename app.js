@@ -7,7 +7,6 @@ if(process.env.NODE_ENV !== "production"){
 
 
 
-
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -47,7 +46,6 @@ app.use(express.urlencoded({extended:true}));
 
 
 const dburl = process.env.ATLASDB_URL ;
-console.log("url is ",dburl);
 
 
 main().then(()=>{
@@ -58,8 +56,16 @@ main().then(()=>{
 });
 
 
+
+
+
 async function main(){
-    await mongoose.connect(process.env.ATLASDB_URL)
+    try{
+    await mongoose.connect(dburl)
+    }
+    catch(err){
+        console.log("error ",err);
+    }
 }
 const port=8080;
 
@@ -76,7 +82,9 @@ store.on("error",()=>{
     console.log("error in mongo session store",err);
 });
 
-app.use(session({secret:process.env.SECRET,
+
+app.use(session({
+    secret:process.env.SECRET,
     store:store,
     resave: false,
     saveUninitialized: true,
@@ -111,17 +119,6 @@ app.use((req,res,next)=>{
 
 
 
-app.get("/getcookies",(req,res)=>{
-    //res.cookie("testing","cookies");
-    res.cookie("greeting","good morining ",{signed:true});
-    res.cookie("message","bye bye !",{signed:true});
-    res.send("browser has sent you signed cookies ");
-})
-app.get("/verify",(req,res)=>{
-    console.log(req.signedCookies);
-    res.send("verified");
-});
-
 
 app.use("/listings",listings);
 app.use("/listings/:id/reviews",reviews);
@@ -136,9 +133,21 @@ app.use((err,req,res,next)=>{
     console.log(message);
     res.status(status).send(message);
 });
+
+app.get("/getcookies",(req,res)=>{
+    //res.cookie("testing","cookies");
+    res.cookie("greeting","good morining ",{signed:true});
+    res.cookie("message","bye bye !",{signed:true});
+    res.send("browser has sent you signed cookies ");
+})
+app.get("/verify",(req,res)=>{
+    console.log(req.signedCookies);
+    res.send("verified");
+});
 app.listen(port,()=>{
      console.log("listening to port 8080");
 });
+
 // app.get("/listings",async (req,res)=>{
     
 //         const allListings = await Listing.find({});

@@ -33,8 +33,8 @@ module.exports.siggnedup = async(req,res)=>{
     try{
     let {username , email ,password} = req.body;
     let newUser = new User({email,username});
-    const registereduser =await  User.register(newUser,password);
-    req.logIn(registereduser,(err)=>{
+    const registereduser =await  User.register(newUser,password);   
+    req.logIn(registereduser,(err)=>{ 
         if (err){
             next(err);
         }
