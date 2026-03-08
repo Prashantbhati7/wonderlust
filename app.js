@@ -1,13 +1,3 @@
-
-
-if(process.env.NODE_ENV !== "production"){
-
-    const dotenv = require("dotenv");
-    dotenv.config();
-}
-
-
-
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -21,7 +11,8 @@ const reviews = require("./routes/review.js");
 const signup = require("./routes/signup.js");
 const login = require("./routes/login.js");
 const  cookieParser = require("cookie-parser");
-
+const dotenv = require("dotenv");
+dotenv.config();
 
 const session =require("express-session");
 
